@@ -21,7 +21,7 @@ API paiement Payment Facilitator RDC (Mobile Money + Carte). Wrapper Moko/PayDRC
 
 | Langage | Package | README |
 |---|---|---|
-| JavaScript/TypeScript | `@nexera/pay` (npm) | [sdks/js](../sdks/js/README.md) |
+| JavaScript/TypeScript | `nexera-pay` (npm) | [sdks/js](../sdks/js/README.md) |
 | Python | `nexera-pay` (pypi) | [sdks/python](../sdks/python/README.md) |
 | PHP | `nexera/pay` (composer) | [sdks/php](../sdks/php/README.md) |
 

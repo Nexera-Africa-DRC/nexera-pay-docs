@@ -71,9 +71,9 @@ Un webhook est configuré par Nexera team via l'admin API. Chaque webhook a :
 
 Payload signé = `"{timestamp}.{body}"`. Compare avec `hmac.compare_digest` (timing-safe).
 
-Node.js avec `@nexera/pay` :
+Node.js avec `nexera-pay` :
 ```typescript
-import { Webhooks } from "@nexera/pay";
+import { Webhooks } from "nexera-pay";
 
 if (!Webhooks.verifySignature(process.env.NEXERA_WEBHOOK_SECRET, sig, bodyString)) {
   return res.status(401).send("invalid");

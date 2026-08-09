@@ -17,7 +17,7 @@ Les clés `nex_test_` fonctionnent en environnement sandbox, sans risque financi
 Avec le SDK JS :
 
 ```typescript
-import { NexeraPay } from "@nexera/pay";
+import { NexeraPay } from "nexera-pay";
 
 const nexera = new NexeraPay({
   apiKey: "nex_test_...",
@@ -61,7 +61,7 @@ Exemple Node/Express :
 
 ```typescript
 import express from "express";
-import { Webhooks } from "@nexera/pay";
+import { Webhooks } from "nexera-pay";
 
 app.post("/webhooks/nexera",
   express.raw({ type: "application/json" }),   // brut pour vérif signature
