@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Nexera Pay"
   text: "API paiement RDC"
-  tagline: "Mobile Money + Carte, une seule intégration. Wrapper Moko/PayDRC + Cybersource."
+  tagline: "Mobile Money (M-Pesa, Airtel, Orange, Africell) + Carte (Visa/Mastercard 3-D Secure). Une seule intégration REST, tous les rails RDC."
   image:
     src: /hero.svg?v=3
     alt: Nexera Pay — API paiement RDC

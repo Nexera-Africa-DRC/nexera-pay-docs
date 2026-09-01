@@ -12,7 +12,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Ctext y=\'26\' font-size=\'26\'%3E💎%3C/text%3E%3C/svg%3E' }],
     ['meta', { name: 'theme-color', content: '#0f172a' }],
     ['meta', { property: 'og:title', content: 'Nexera Pay — Documentation' }],
-    ['meta', { property: 'og:description', content: 'API paiement Payment Facilitator RDC — Mobile Money + Carte' }],
+    ['meta', { property: 'og:description', content: "API d'encaissement RDC — Mobile Money + Carte, une seule intégration REST" }],
     ['meta', { property: 'og:url', content: 'https://docs.nexera.africa' }],
   ],
 

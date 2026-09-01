@@ -1,6 +1,6 @@
 # Nexera Pay — Documentation
 
-API paiement Payment Facilitator RDC (Mobile Money + Carte). Wrapper Moko/PayDRC + MokoAfrika/Cybersource.
+API d'encaissement RDC : Mobile Money (M-Pesa, Airtel Money, Orange Money, Africell) + Carte bancaire (Visa/Mastercard 3-D Secure, PCI DSS SAQ-A). Une seule intégration REST, tous les rails locaux.
 
 **URL API** : `https://pay.nexera.africa`
 **Docs live** : `https://pay.nexera.africa/docs` (Swagger UI auto-généré) + `/redoc`
