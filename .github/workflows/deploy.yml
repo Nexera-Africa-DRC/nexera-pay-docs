@@ -22,11 +22,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      # Pas de cache npm : le repo n'a pas encore de package-lock.json
-      # (VitePress est une dépendance légère). npm install au lieu de npm ci.
       - name: Install
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: Build VitePress
         run: npm run build
