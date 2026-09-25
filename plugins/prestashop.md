@@ -39,7 +39,7 @@ Depuis l'écran de configuration du module :
 - **Méthodes** : Mobile Money uniquement, Carte uniquement, ou les deux.
 - **Ordre d'affichage** : place de la passerelle dans la liste des moyens de paiement au checkout.
 
-Puis, dans votre [dashboard Nexera Pay](https://admin-pay.nexera.africa), configurez l'URL webhook :
+Puis, dans votre [dashboard Nexera Pay](https://merchants.nexera.africa), configurez l'URL webhook :
 
 ```
 https://<votre-boutique>.com/module/nexerapay/webhook

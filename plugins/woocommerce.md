@@ -43,7 +43,7 @@ Symlink ou copie du dossier dans `wp-content/plugins/nexera-pay/`.
    - **Devises acceptées** : USD, CDF ou les deux.
    - **Méthodes acceptées** : Mobile Money, Carte, ou les deux.
 3. **Enregistrer les modifications**.
-4. Configurez l'URL webhook dans votre [dashboard Nexera Pay](https://admin-pay.nexera.africa) :
+4. Configurez l'URL webhook dans votre [dashboard Nexera Pay](https://merchants.nexera.africa) :
    ```
    https://<votre-site>.com/wp-json/nexera-pay/v1/webhook
    ```

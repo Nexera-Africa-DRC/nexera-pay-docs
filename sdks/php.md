@@ -26,7 +26,7 @@ $nexera = new \Nexera\Pay\NexeraPay(
 );
 ```
 
-Clés disponibles dans [admin-pay.nexera.africa](https://admin-pay.nexera.africa).
+Clés disponibles dans [merchants.nexera.africa](https://merchants.nexera.africa).
 
 ## Paiement Mobile Money (STK Push)
 

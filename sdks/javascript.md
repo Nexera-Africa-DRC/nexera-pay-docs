@@ -27,7 +27,7 @@ const nexera = new NexeraPay({
 });
 ```
 
-Les clés sont disponibles dans votre dashboard marchand : [admin-pay.nexera.africa](https://admin-pay.nexera.africa).
+Les clés sont disponibles dans votre dashboard marchand : [merchants.nexera.africa](https://merchants.nexera.africa).
 
 ## Paiement Mobile Money (STK Push)
 

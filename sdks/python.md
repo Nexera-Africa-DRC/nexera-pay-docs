@@ -28,7 +28,7 @@ nexera = NexeraPay(
 )
 ```
 
-Clés API disponibles dans [admin-pay.nexera.africa](https://admin-pay.nexera.africa) → onglet Credentials.
+Clés API disponibles dans [merchants.nexera.africa](https://merchants.nexera.africa) → onglet Credentials.
 
 ## Paiement Mobile Money (STK Push)
 
