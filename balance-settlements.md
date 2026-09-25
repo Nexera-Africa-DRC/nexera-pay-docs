@@ -1,5 +1,13 @@
 # Balance & Settlements
 
+Endpoints :
+- `GET https://pay.nexera.africa/v1/balance` — solde marchand en temps réel
+- `GET https://pay.nexera.africa/v1/settlements` — historique des reversements
+
+::: info Base URL unique
+Même URL pour sandbox et production — les clés `nex_test_*` vs `nex_live_*` discriminent. Voir [Authentication → Base URL](/authentication#base-url).
+:::
+
 ## Balance — solde marchand en temps réel
 
 ```typescript

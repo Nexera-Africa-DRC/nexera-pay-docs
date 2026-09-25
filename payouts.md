@@ -1,8 +1,12 @@
 # Payouts B2C
 
-Envoyer de l'argent depuis le wallet marchand vers un client par Mobile Money. Use-cases : remboursement, prime salariale, gagnant de tombola, etc.
+Endpoint : `POST https://pay.nexera.africa/v1/payouts` — envoyer de l'argent depuis le wallet marchand vers un client par Mobile Money. Use-cases : remboursement, prime salariale, gagnant de tombola, etc.
 
 **Scope requis** : `full`.
+
+::: info Base URL unique
+Même URL pour sandbox et production — les clés `nex_test_*` vs `nex_live_*` discriminent. Voir [Authentication → Base URL](/authentication#base-url).
+:::
 
 ## Créer un payout
 

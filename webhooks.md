@@ -1,6 +1,10 @@
 # Webhooks
 
-Nexera Pay t'envoie un `POST` HTTPS vers ton URL webhook quand un événement se produit (paiement confirmé, échec, refund, settlement…).
+Nexera Pay t'envoie un `POST` HTTPS vers **ton URL webhook** (chez toi, pas chez nous) quand un événement se produit (paiement confirmé, échec, refund, settlement…).
+
+::: info Émetteur des webhooks
+Les webhooks sortent des IP Nexera Pay et sont signés HMAC avec ton `whsec_...`. Ton endpoint reçoit `POST <votre-url>` ; il n'y a pas de "base URL Nexera" côté webhook — c'est toi qui exposes l'URL. Vérifie systématiquement la signature avant de traiter (voir plus bas).
+:::
 
 ## Configuration
 

@@ -13,11 +13,11 @@ hero:
       text: Quickstart 5 min
       link: /quickstart
     - theme: alt
-      text: API Reference (Swagger)
-      link: https://pay.nexera.africa/docs
+      text: SDK officiels
+      link: /sdks/javascript
     - theme: alt
-      text: GitHub SDKs
-      link: https://github.com/nexera
+      text: GitHub
+      link: https://github.com/Nexera-Africa-DRC
 
 features:
   - icon: 📱
@@ -49,7 +49,7 @@ features:
 ## Standards
 
 - **REST** strict, verbes HTTP standards
-- **OpenAPI 3.1** auto-généré · `/docs` (Swagger) + `/redoc`
+- **OpenAPI 3.1** — schéma disponible sur demande à `dev@nexera.africa` (spec fermée au public en prod)
 - **RFC 7807** pour toutes les erreurs (`application/problem+json`)
 - **Idempotency-Key** obligatoire sur `POST /payments` et `POST /payouts`
 - **Montants** en cents (int) — jamais de float
@@ -57,13 +57,20 @@ features:
 - **Dates** ISO 8601 UTC
 - **Webhooks** format signature Stripe
 
-## SDKs officiels
+## SDK officiels
 
-| Langage | Package |
-|---|---|
-| JavaScript / TypeScript | `nexera-pay` (npm) |
-| Python | `nexera-pay` (pypi) |
-| PHP | `nexera/pay` (composer) |
+| Langage | Installation | Doc |
+|---|---|---|
+| JavaScript / TypeScript | `npm install nexera-pay` | [/sdks/javascript](/sdks/javascript) |
+| Python | `pip install nexera-pay` | [/sdks/python](/sdks/python) |
+| PHP | `composer require nexera/pay` | [/sdks/php](/sdks/php) |
+
+## Plugins e-commerce
+
+| Plateforme | Installation | Doc |
+|---|---|---|
+| WooCommerce | ZIP officiel → Extensions | [/plugins/woocommerce](/plugins/woocommerce) |
+| PrestaShop | ZIP officiel → Modules | [/plugins/prestashop](/plugins/prestashop) |
 
 ## Contact
 

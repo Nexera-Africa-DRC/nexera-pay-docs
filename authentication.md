@@ -1,5 +1,20 @@
 # Authentication
 
+## Base URL
+
+Tous les endpoints Nexera Pay vivent sous une **URL unique** :
+
+| Environnement | Base URL | Clés API |
+|---|---|---|
+| Sandbox (test) | `https://pay.nexera.africa` | `nex_test_...` |
+| Production (live) | `https://pay.nexera.africa` | `nex_live_...` |
+
+La discrimination test/prod se fait uniquement par le **préfixe de la clé API** (`nex_test_` vs `nex_live_`). Pas de sous-domaine distinct à mémoriser — le serveur route automatiquement.
+
+Ainsi `POST /v1/payments` = `POST https://pay.nexera.africa/v1/payments`.
+
+## Trois mécanismes cumulatifs
+
 Nexera Pay utilise **3 mécanismes cumulatifs** pour authentifier chaque requête :
 
 1. **Bearer token** (`Authorization: Bearer <api_key>`)

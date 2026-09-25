@@ -9,21 +9,23 @@ export default defineConfig({
   srcExclude: ['README.md'],
 
   head: [
-    ['link', { rel: 'icon', href: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Ctext y=\'26\' font-size=\'26\'%3E💎%3C/text%3E%3C/svg%3E' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#0f172a' }],
     ['meta', { property: 'og:title', content: 'Nexera Pay — Documentation' }],
     ['meta', { property: 'og:description', content: "API d'encaissement RDC — Mobile Money + Carte, une seule intégration REST" }],
     ['meta', { property: 'og:url', content: 'https://docs.nexera.africa' }],
+    ['meta', { property: 'og:image', content: 'https://docs.nexera.africa/favicon.png' }],
   ],
 
   themeConfig: {
     siteTitle: 'Nexera Pay Docs',
+    logo: '/nexera-logo.png',
 
     nav: [
       { text: 'Quickstart', link: '/quickstart' },
       { text: 'Guides', link: '/authentication' },
       { text: 'Sécurité', link: '/security' },
-      { text: 'API Live', link: 'https://pay.nexera.africa/docs' },
       { text: 'Status', link: 'https://status.nexera.africa' },
     ],
 
@@ -38,7 +40,22 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Endpoints',
+        text: 'SDK officiels',
+        items: [
+          { text: 'JavaScript / TypeScript', link: '/sdks/javascript' },
+          { text: 'Python', link: '/sdks/python' },
+          { text: 'PHP', link: '/sdks/php' },
+        ],
+      },
+      {
+        text: 'Plugins e-commerce',
+        items: [
+          { text: 'WooCommerce', link: '/plugins/woocommerce' },
+          { text: 'PrestaShop', link: '/plugins/prestashop' },
+        ],
+      },
+      {
+        text: 'Endpoints REST',
         items: [
           { text: 'Payments', link: '/payments' },
           { text: 'Payouts B2C', link: '/payouts' },
@@ -57,16 +74,16 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/nexera' },
+      { icon: 'github', link: 'https://github.com/Nexera-Africa-DRC' },
     ],
 
     footer: {
-      message: 'Nexera · Fais-le tourner.',
+      message: 'Nexera Pay · Fais-le tourner.',
       copyright: 'Nexera — SODOTECH SARL · RCCM CD/KNG/RCCM/24-B-00910',
     },
 
     editLink: {
-      pattern: 'https://github.com/nexera/nexera-pay-docs/edit/main/:path',
+      pattern: 'https://github.com/Nexera-Africa-DRC/nexera-pay-docs/edit/main/:path',
       text: 'Suggérer une modif',
     },
 

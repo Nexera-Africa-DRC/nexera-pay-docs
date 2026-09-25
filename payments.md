@@ -1,6 +1,10 @@
 # Payments
 
-Endpoint : `POST /v1/payments` — création d'un paiement C2B (client → marchand).
+Endpoint : `POST https://pay.nexera.africa/v1/payments` — création d'un paiement C2B (client → marchand).
+
+::: info Base URL unique
+Même URL pour sandbox et production — les clés `nex_test_*` vs `nex_live_*` discriminent l'environnement. Voir [Authentication → Base URL](/authentication#base-url).
+:::
 
 ## Mobile Money
 

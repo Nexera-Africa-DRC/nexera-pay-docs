@@ -2,6 +2,16 @@
 
 Ce guide t'apprend à encaisser un paiement Mobile Money via l'API Nexera Pay.
 
+::: tip Intégration en 1 minute avec un SDK officiel
+Pas envie de signer chaque requête à la main ? Un SDK officiel gère l'authentification HMAC, l'idempotency et le parsing pour toi.
+
+- **JavaScript / TypeScript** — [`npm install nexera-pay`](/sdks/javascript)
+- **Python** — [`pip install nexera-pay`](/sdks/python)
+- **PHP** — [`composer require nexera/pay`](/sdks/php)
+
+Boutique existante ? Utilise plutôt un plugin clé-en-main : [WooCommerce](/plugins/woocommerce) · [PrestaShop](/plugins/prestashop).
+:::
+
 ## 1. Récupérer tes credentials
 
 Contacte-nous à `dev@nexera.africa` pour obtenir un compte marchand. Tu recevras :

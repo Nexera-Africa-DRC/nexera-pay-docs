@@ -1,6 +1,10 @@
 # Refunds
 
-Rembourser un paiement — partiel ou total. **Scope requis** : `full`.
+Endpoint : `POST https://pay.nexera.africa/v1/payments/{payment_id}/refund` — rembourser un paiement, partiel ou total. **Scope requis** : `full`.
+
+::: info Base URL unique
+Même URL pour sandbox et production — les clés `nex_test_*` vs `nex_live_*` discriminent. Voir [Authentication → Base URL](/authentication#base-url).
+:::
 
 ## Refund total
 
