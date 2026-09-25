@@ -1,0 +1,53 @@
+name: Deploy docs.nexera.africa
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - '.gitignore'
+  workflow_dispatch: {}
+
+concurrency:
+  group: docs-nexera-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build VitePress
+        run: npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy dist to Kamatera
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new" \
+            .vitepress/dist/ \
+            root@${{ secrets.DROPLET_IP }}:/var/www/docs.nexera.africa/
+
+      - name: Smoke test
+        run: |
+          code=$(curl -sS -o /dev/null -w "%{http_code}" https://docs.nexera.africa/)
+          if [ "$code" != "200" ]; then
+            echo "Homepage returned HTTP $code"
+            exit 1
+          fi
+          echo "docs.nexera.africa OK (HTTP $code)"
