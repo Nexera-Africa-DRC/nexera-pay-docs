@@ -45,7 +45,7 @@ Réponse :
 
 Un STK Push est envoyé sur le téléphone du client. Il tape son PIN. Nexera Pay reçoit le callback Moko et t'envoie le webhook `payment.succeeded` (ou `payment.failed`).
 
-## Carte (hosted checkout)
+## Carte (checkout Nexera-branded)
 
 ```typescript
 const p = await nexera.payments.create({
@@ -58,11 +58,11 @@ const p = await nexera.payments.create({
   return_url: "https://ton-app.com/facture/002",   // client redirigé ici après paiement
 });
 
-// Rediriger le client vers le checkout hébergé
+// Rediriger le client vers le checkout Nexera-branded
 window.location.href = p.checkout_url;
 ```
 
-La page checkout est hébergée par MokoAfrika (Cybersource + 3DS). Le client saisit sa carte, valide 3DS, puis revient sur ton `return_url`. Un webhook `payment.succeeded` te confirme.
+La page checkout est hébergée par Nexera sur `pay.nexera.africa/checkout/{payment_id}`, propulsée par Cybersource Microform pour la tokenisation carte (PCI DSS SAQ-A — le PAN ne touche jamais nos serveurs, il est saisi directement dans des iframes contrôlés par Cybersource). Le client reste sur l'univers Nexera du début à la fin, sauf pendant le challenge 3-D Secure de sa banque (page issuer standard). Après paiement, il revient sur ton `return_url` et un webhook `payment.succeeded` te confirme.
 
 ## Fee bearer
 

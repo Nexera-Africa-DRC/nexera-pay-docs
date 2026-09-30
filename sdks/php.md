@@ -45,7 +45,7 @@ echo $payment['id'] . ' — ' . $payment['status'];
 // → pay_xxxx — processing
 ```
 
-## Paiement carte (hosted checkout)
+## Paiement carte (checkout Nexera-branded)
 
 ```php
 $payment = $nexera->payments->create([
@@ -58,7 +58,8 @@ $payment = $nexera->payments->create([
     'return_url'     => 'https://monsite.cd/facture/002',
 ]);
 
-// Rediriger vers le checkout hosted CyberSource :
+// Rediriger vers la page checkout Nexera-branded
+// (pay.nexera.africa/checkout/{id} — Cybersource Microform, PCI DSS SAQ-A) :
 header('Location: ' . $payment['checkout_url']);
 exit;
 ```
@@ -85,7 +86,7 @@ public function nexera(Request $request)
         return response('bad signature', 400);
     }
 
-    if ($event['type'] === 'payment.completed') {
+    if ($event['type'] === 'payment.succeeded') {
         $order = Order::where('reference', $event['data']['reference'])->first();
         $order?->markAsPaid();
     }

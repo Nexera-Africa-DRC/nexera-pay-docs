@@ -22,7 +22,6 @@ Un webhook est configuré par Nexera team via l'admin API. Chaque webhook a :
 | `payment.failed` | Paiement échoué (client refuse, wrong pin, insufficient funds, timeout) |
 | `payment.cancelled` | Paiement annulé |
 | `refund.succeeded` | Refund confirmé |
-| `refund.failed` | Refund échoué |
 | `payout.succeeded` | Payout B2C confirmé |
 | `payout.failed` | Payout échoué |
 | `settlement.completed` | Batch settlement quotidien créé |

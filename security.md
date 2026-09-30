@@ -10,12 +10,12 @@
 | Brute-force signature | Rate limit 100 req/min/api_key, alerte >10 sig invalides/min |
 | Man-in-the-middle | TLS 1.3 + HSTS preload + certificate pinning côté SDK |
 | Injection SQL | Pydantic strict + SQLAlchemy paramétré, jamais de raw SQL avec user input |
-| Injection JSON (bomb) | Body max 100 KB, max 20 clés metadata, valeurs max 500 chars |
+| Injection JSON (bomb) | Body max 500 MB globalement (aligné avec KYC/catalog uploads), max 20 clés metadata, valeurs max 500 chars. `/v1/payments` reste typiquement <10 KB |
 | CSRF | Pas de cookies sur l'API publique. Dashboard admin séparé avec token CSRF |
 | Enumeration IDs | UUID v4 partout, jamais séquentiels |
 | Timing attack sur secrets | `hmac.compare_digest`, réponses 401 uniformes |
 | DDoS | Cloudflare WAF + rate limit L7 nginx + rate limit L7 app |
-| PAN carte volé | Jamais stocké (tokenization Cybersource, PCI DSS SAQ-A) |
+| PAN carte volé | Jamais stocké — saisi directement dans un iframe Cybersource Microform embedded dans la page Nexera. Tokenisation côté Cybersource, PCI DSS SAQ-A |
 | Master key compromise | Fernet key isolée dans secret manager, rotation prévue |
 | DB dump compromise | Secrets marchands chiffrés (Fernet), séparés dans table dédiée |
 | Webhook replay chez marchand | Signature Stripe-style (t=ts,v1=sig), marchand vérifie timestamp |
@@ -28,7 +28,7 @@
 POST /v1/payments HTTP/1.1
 Host: pay.nexera.africa
 Authorization: Bearer nex_live_a1b2c3d4...
-X-Signature: sha256=e7f8...
+X-Signature: e7f8a1b2c3d4e5f6...  # HMAC-SHA256 hex, sans préfixe
 X-Timestamp: 1786200000
 Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
 Content-Type: application/json
@@ -39,14 +39,14 @@ Content-Length: 234
 
 Serveur exécute dans l'ordre :
 
-1. `Content-Length > 100 KB` → 413 immédiat (avant lire body)
+1. `Content-Length > 500 MB` → 413 immédiat (avant lire body). Ce plafond couvre les uploads KYC/catalog. Pour un `/v1/payments`, le body est typiquement <10 KB.
 2. `Bearer` présent → sinon 401 auth-required
 3. Lookup credential par `api_key` (index unique) → sinon 401 api-key-invalid
 4. IP client dans allowlist si configurée → sinon 403 ip-not-allowed
 5. Merchant status = ACTIVE → sinon 403 merchant-suspended
 6. Rate limit (INCR Redis clé bucket minute) → sinon 429 rate-limit-exceeded
 7. `X-Timestamp` présent et |now-ts| < 5min → sinon 401 timestamp-expired
-8. Signature = `sha256=HMAC(secret, ts.method.path.body)` (constant-time compare) → sinon 401 signature-invalid
+8. Signature = `HMAC-SHA256(secret, ts.method.path.body)` en hex pur, sans préfixe (constant-time compare) → sinon 401 signature-invalid
 9. Idempotency (POST /payments|/payouts) : si `Idempotency-Key` déjà vu → check request_hash match, sinon 409 idempotency-conflict, si match → return cached response
 10. Traitement route
 
@@ -78,7 +78,8 @@ Un attaquant a besoin de **3 choses** pour usurper une identité marchand :
 App + Nginx :
 - `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
 - `X-Content-Type-Options: nosniff`
-- `X-Frame-Options: DENY`
+- `X-Frame-Options: DENY` partout, sauf `/checkout/{id}/3ds-return` où c'est `SAMEORIGIN` (nécessaire pour que l'iframe Cybersource StepUp puisse recevoir notre HTML après le challenge OTP)
+- `Content-Security-Policy: frame-ancestors 'self'` sur `/checkout/{id}/3ds-return`
 - `Referrer-Policy: no-referrer`
 - `Permissions-Policy: geolocation=(), microphone=(), camera=()`
 - `Server: Nexera` (masquage version uvicorn)

@@ -29,7 +29,7 @@ Une clé volée seule ne suffit pas à faire une transaction : sans le secret HM
 |---|---|---|
 | `Authorization: Bearer <api_key>` | Toutes | Clé API publique |
 | `X-Timestamp` | POST/PATCH/DELETE | Unix timestamp (secondes) |
-| `X-Signature` | POST/PATCH/DELETE | `sha256=<hex>` |
+| `X-Signature` | POST/PATCH/DELETE | HMAC-SHA256 hex, sans préfixe (voir ci-dessous) |
 | `Idempotency-Key` | POST /payments et /payouts | UUID v4 unique, dédupe 24h |
 | `Content-Type: application/json` | POST/PATCH/PUT | Toujours JSON |
 
@@ -39,8 +39,10 @@ La signature est un HMAC-SHA256 avec ton `secret` sur le payload :
 
 ```
 payload = "{timestamp}.{METHOD}.{path}.{body}"
-signature = "sha256=" + hex(hmac_sha256(secret, payload))
+signature = hex(hmac_sha256(secret, payload))
 ```
+
+Le header `X-Signature` contient uniquement le digest hex — **pas de préfixe `sha256=`**. Le nom de l'algo est implicite (HMAC-SHA256).
 
 Exemple Python :
 
@@ -54,7 +56,7 @@ path = "/v1/payments"
 body = '{"amount":10000,"currency":"USD","method":"mobile_money",...}'
 
 payload = f"{timestamp}.{method}.{path}.{body}"
-signature = "sha256=" + hmac.new(secret.encode(), payload.encode(), hashlib.sha256).hexdigest()
+signature = hmac.new(secret.encode(), payload.encode(), hashlib.sha256).hexdigest()
 ```
 
 Exemple JavaScript :
@@ -65,14 +67,14 @@ import { createHmac } from "node:crypto";
 const secret = "sk_...";
 const ts = Math.floor(Date.now() / 1000).toString();
 const payload = `${ts}.POST./v1/payments.${JSON.stringify(body)}`;
-const signature = "sha256=" + createHmac("sha256", secret).update(payload).digest("hex");
+const signature = createHmac("sha256", secret).update(payload).digest("hex");
 ```
 
 Exemple PHP :
 
 ```php
 $payload = time() . '.POST./v1/payments.' . json_encode($body);
-$signature = 'sha256=' . hash_hmac('sha256', $payload, $secret);
+$signature = hash_hmac('sha256', $payload, $secret);
 ```
 
 **⚠️ Important** : le `body` utilisé pour la signature doit être **exactement identique** à celui envoyé. Toute modification (espaces, ordre des clés) invalide la signature. Sérialise ton JSON une seule fois puis utilise la même chaîne pour body et signature.

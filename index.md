@@ -26,7 +26,7 @@ features:
     link: /payments
   - icon: 💳
     title: Carte
-    details: Visa, Mastercard via Cybersource. 3D-Secure inclus. PCI DSS SAQ-A.
+    details: Visa, Mastercard. Checkout Nexera-branded (Cybersource Microform). 3-D Secure inclus. PCI DSS SAQ-A.
     link: /payments
   - icon: 💸
     title: Payouts B2C

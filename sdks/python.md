@@ -47,7 +47,7 @@ print(payment["id"], payment["status"])
 # → pay_xxxx  processing
 ```
 
-## Paiement carte (hosted checkout)
+## Paiement carte (checkout Nexera-branded)
 
 ```python
 payment = nexera.payments.create(
@@ -60,7 +60,8 @@ payment = nexera.payments.create(
     return_url="https://monsite.cd/facture/002",
 )
 
-# Rediriger le client vers le checkout hosted :
+# Rediriger le client vers la page checkout Nexera-branded
+# (pay.nexera.africa/checkout/{id} — Cybersource Microform, PCI DSS SAQ-A) :
 return redirect(payment["checkout_url"])
 ```
 
@@ -110,7 +111,7 @@ def nexera_webhook():
     except ValueError:
         abort(400, "bad signature")
 
-    if event["type"] == "payment.completed":
+    if event["type"] == "payment.succeeded":
         # Marquer la commande comme payée
         order_id = event["data"]["reference"]
         # ...
@@ -127,7 +128,7 @@ Tous les payloads / responses / événements webhook sont typés (`TypedDict` + 
 from nexera_pay import PaymentCreatePayload, WebhookEvent
 
 def handle(event: WebhookEvent) -> None:
-    if event["type"] == "payment.completed":
+    if event["type"] == "payment.succeeded":
         amount_cents: int = event["data"]["amount"]
         # ...
 ```

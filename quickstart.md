@@ -52,7 +52,7 @@ Avec cURL :
 ```bash
 TS=$(date +%s)
 BODY='{"amount":10000,"currency":"USD","method":"mobile_money","operator":"mpesa","phone":"243812345001","reference":"INV-001"}'
-SIG=$(python3 -c "import hmac,hashlib; print('sha256='+hmac.new(b'sk_...','$TS.POST./v1/payments.$BODY'.encode(),hashlib.sha256).hexdigest())")
+SIG=$(python3 -c "import hmac,hashlib; print(hmac.new(b'sk_...','$TS.POST./v1/payments.$BODY'.encode(),hashlib.sha256).hexdigest())")
 
 curl -X POST https://pay.nexera.africa/v1/payments \
   -H "Authorization: Bearer nex_test_..." \

@@ -46,9 +46,9 @@ console.log(payment.id, payment.status);
 // → pay_xxxx  processing
 ```
 
-Le client reçoit un push USSD sur son téléphone. Le statut final vous parvient via webhook (`payment.completed` ou `payment.failed`).
+Le client reçoit un push USSD sur son téléphone. Le statut final vous parvient via webhook (`payment.succeeded` ou `payment.failed`).
 
-## Paiement carte (hosted checkout)
+## Paiement carte (checkout Nexera-branded)
 
 ```typescript
 const payment = await nexera.payments.create({
@@ -61,7 +61,8 @@ const payment = await nexera.payments.create({
   return_url: "https://monsite.cd/facture/002",
 });
 
-// Rediriger le client :
+// Rediriger le client vers la page checkout Nexera-branded
+// (pay.nexera.africa/checkout/{id} — Cybersource Microform, PCI DSS SAQ-A) :
 window.location.href = payment.checkout_url!;
 ```
 
@@ -83,7 +84,7 @@ app.post("/webhooks/nexera",
       );
 
       switch (event.type) {
-        case "payment.completed":
+        case "payment.succeeded":
           console.log("Paiement OK :", event.data.id);
           break;
         case "payment.failed":
@@ -107,7 +108,7 @@ Le SDK est écrit en TypeScript strict. Tous les types sont inclus, aucun `@type
 import type { Payment, WebhookEvent, PaymentMethod } from "nexera-pay";
 
 function handleEvent(event: WebhookEvent) {
-  if (event.type === "payment.completed") {
+  if (event.type === "payment.succeeded") {
     const payment: Payment = event.data;
     // ...
   }
