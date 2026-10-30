@@ -62,7 +62,33 @@ const p = await nexera.payments.create({
 window.location.href = p.checkout_url;
 ```
 
+**Important** : récupère l'URL de checkout dans le champ `checkout_url` de la réponse — **ne la construis pas manuellement**. L'URL est générée côté serveur et inclut l'ID interne de la transaction.
+
+Exemple de réponse pour un paiement carte :
+
+```json
+{
+  "id": "pay_6f23c8d9...",
+  "object": "payment",
+  "status": "processing",
+  "method": "card",
+  "environment": "test",
+  "currency": "USD",
+  "amount_charged": 50000,
+  "amount_net": 48000,
+  "fee": 2000,
+  "fee_bearer": "merchant",
+  "reference": "INV-002",
+  "provider": "cybersource",
+  "checkout_url": "https://pay.nexera.africa/checkout/6f23c8d9-...",
+  "created": 1786200000,
+  "completed": null
+}
+```
+
 La page checkout est hébergée par Nexera sur `pay.nexera.africa/checkout/{payment_id}`, propulsée par Cybersource Microform pour la tokenisation carte (PCI DSS SAQ-A — le PAN ne touche jamais nos serveurs, il est saisi directement dans des iframes contrôlés par Cybersource). Le client reste sur l'univers Nexera du début à la fin, sauf pendant le challenge 3-D Secure de sa banque (page issuer standard). Après paiement, il revient sur ton `return_url` et un webhook `payment.succeeded` te confirme.
+
+**Testable en sandbox** : l'URL `checkout_url` est renvoyée aussi bien en environnement `test` qu'en `live`. En test, la page charge Microform Cybersource SBX — tu peux valider tout le flow carte (incluant le challenge 3-D Secure) avec les [cartes de test documentées](./testing-sandbox.md) avant d'activer ton environnement live.
 
 ## Fee bearer
 
