@@ -87,7 +87,7 @@ Si tu envoies la même key avec un **body différent**, tu reçois `409 Conflict
 
 ```typescript
 // SDK JS génère un Idempotency-Key automatique
-await nexera.payments.create({ amount: 10000, ... });
+await nexera.payments.create({ amount: 100, ... });
 // Override si tu veux contrôler
 await nexera.payments.create({ ... }, { idempotencyKey: "my-custom-key-123" });
 ```

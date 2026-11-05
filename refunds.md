@@ -17,7 +17,7 @@ await nexera.refunds.create("pay_xxx");
 
 ```typescript
 await nexera.refunds.create("pay_xxx", {
-  amount: 5000,           // en cents
+  amount: 50,             // 50 USD — unité entière de la devise
   reason: "Article manquant dans la commande",
 });
 ```
@@ -69,5 +69,5 @@ Le montant refund est **déduit** de `balance.available` immédiatement à la cr
 
 ```typescript
 const refunds = await nexera.refunds.list("pay_xxx");
-// { object: "list", data: [{ id: "re_xxx", amount: 5000, ... }, ...] }
+// { object: "list", data: [{ id: "re_xxx", amount: 50, ... }, ...] }
 ```

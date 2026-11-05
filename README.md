@@ -33,7 +33,7 @@ API d'encaissement RDC : Mobile Money (M-Pesa, Airtel Money, Orange Money, Afric
 - **Erreurs** format RFC 7807 (`application/problem+json`)
 - **Pagination** cursor-based (pas offset)
 - **Dates** ISO 8601 UTC
-- **Montants** en cents (int) — jamais de float
+- **Montants** en unité entière de la devise (int) — jamais de float
 - **Devises** ISO 4217 (`USD`, `CDF`)
 - **Webhooks** signature format Stripe (`t=ts,v1=hex`)
 - **Idempotency-Key** obligatoire sur POST /payments et /payouts

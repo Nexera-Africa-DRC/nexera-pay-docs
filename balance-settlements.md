@@ -15,8 +15,8 @@ const bal = await nexera.balance.get();
 // {
 //   object: "balance",
 //   environment: "live",
-//   available: { USD: 45230, CDF: 1250000 },   // cents
-//   pending:   { USD: 5000, CDF: 0 },
+//   available: { USD: 452, CDF: 12500 },   // unité entière de la devise
+//   pending:   { USD: 50, CDF: 0 },
 //   settled:   { USD: 0, CDF: 0 }
 // }
 ```
@@ -54,9 +54,9 @@ const list = await nexera.settlements.list({ limit: 30 });
 //     {
 //       id: "settle_xxx",
 //       currency: "USD",
-//       amount: 45230,        // à virer au marchand
-//       gross: 47110,          // brut encaissé
-//       fees: 1880,             // commission Nexera
+//       amount: 452,        // à virer au marchand
+//       gross: 471,          // brut encaissé
+//       fees: 19,             // commission Nexera
 //       refunds: 0,
 //       transaction_count: 12,
 //       period_start: "2026-08-07",

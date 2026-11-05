@@ -52,7 +52,7 @@ features:
 - **OpenAPI 3.1** — schéma disponible sur demande à `dev@nexera.africa` (spec fermée au public en prod)
 - **RFC 7807** pour toutes les erreurs (`application/problem+json`)
 - **Idempotency-Key** obligatoire sur `POST /payments` et `POST /payouts`
-- **Montants** en cents (int) — jamais de float
+- **Montants** en unité entière de la devise (int) — jamais de float
 - **Devises** ISO 4217 (`USD`, `CDF`)
 - **Dates** ISO 8601 UTC
 - **Webhooks** format signature Stripe

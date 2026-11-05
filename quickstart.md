@@ -35,7 +35,7 @@ const nexera = new NexeraPay({
 });
 
 const payment = await nexera.payments.create({
-  amount: 10000,          // 100.00 USD en cents (int, jamais de float)
+  amount: 100,             // 100 USD — ⚠️ unité entière de la devise, PAS cents
   currency: "USD",
   method: "mobile_money",
   operator: "mpesa",

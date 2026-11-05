@@ -32,7 +32,7 @@ Clés disponibles dans [merchants.nexera.africa](https://merchants.nexera.africa
 
 ```php
 $payment = $nexera->payments->create([
-    'amount'      => 10000,          // 100.00 USD en cents
+    'amount'      => 100,             // 100 USD — unité entière de la devise
     'currency'    => 'USD',
     'method'      => 'mobile_money',
     'operator'    => 'mpesa',         // mpesa | airtel | orange | africell

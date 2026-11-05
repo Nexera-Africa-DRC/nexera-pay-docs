@@ -33,7 +33,7 @@ Les clés sont disponibles dans votre dashboard marchand : [merchants.nexera.afr
 
 ```typescript
 const payment = await nexera.payments.create({
-  amount: 10000,           // 100.00 USD en cents
+  amount: 100,              // 100 USD — unité entière de la devise
   currency: "USD",
   method: "mobile_money",
   operator: "mpesa",       // mpesa | airtel | orange | africell
@@ -52,7 +52,7 @@ Le client reçoit un push USSD sur son téléphone. Le statut final vous parvien
 
 ```typescript
 const payment = await nexera.payments.create({
-  amount: 50000,
+  amount: 500,
   currency: "USD",
   method: "card",
   reference: "INV-002",

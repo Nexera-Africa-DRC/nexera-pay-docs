@@ -6,11 +6,20 @@ Endpoint : `POST https://pay.nexera.africa/v1/payments` — création d'un paiem
 Même URL pour sandbox et production — les clés `nex_test_*` vs `nex_live_*` discriminent l'environnement. Voir [Authentication → Base URL](/authentication#base-url).
 :::
 
+::: warning ⚠️ Convention `amount` — unité entière, PAS cents
+Contrairement à Stripe / Fincra, le champ `amount` est en **unité entière de la devise**, pas en cents.
+
+- Pour **100 USD** : envoyer `amount: 100` (**pas** `amount: 10000`)
+- Pour **5000 CDF** : envoyer `amount: 5000` (**pas** `amount: 500000`)
+
+Si vous migrez depuis Stripe, **retirez tout `* 100` / helper `toCents()`** dans votre code avant d'envoyer.
+:::
+
 ## Mobile Money
 
 ```typescript
 const p = await nexera.payments.create({
-  amount: 10000,          // int en cents
+  amount: 100,             // 100 USD — unité entière de la devise (int)
   currency: "USD",         // "USD" | "CDF"
   method: "mobile_money",
   operator: "mpesa",       // "mpesa" | "airtel" | "orange" | "africell"
@@ -49,7 +58,7 @@ Un STK Push est envoyé sur le téléphone du client. Il tape son PIN. Nexera Pa
 
 ```typescript
 const p = await nexera.payments.create({
-  amount: 50000,
+  amount: 500,
   currency: "USD",
   method: "card",
   reference: "INV-002",
@@ -102,7 +111,7 @@ Deux modes configurables au niveau marchand (default) ou par transaction (overri
 ```typescript
 // Le client absorbe le fee — marchand reçoit pile 10000 USD net
 await nexera.payments.create({
-  amount: 10000,   // ← montant NET souhaité par le marchand
+  amount: 100,   // ← montant NET en USD souhaité par le marchand
   fee_bearer: "customer",
   ...
 });
