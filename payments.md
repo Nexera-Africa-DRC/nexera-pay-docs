@@ -17,16 +17,67 @@ Si vous migrez depuis Stripe, **retirez tout `* 100` / helper `toCents()`** dans
 
 ## Mobile Money
 
+Nexera Pay accepte le Mobile Money dans **11 pays d'Afrique** :
+
+| Pays | ISO | Opérateurs | Devise |
+|---|---|---|---|
+| **RD Congo** | `COD` | `mpesa`, `airtel`, `orange`, `africell` | CDF, USD |
+| Bénin | `BEN` | `mtn`, `moov` | XOF |
+| Côte d'Ivoire | `CIV` | `mtn`, `orange` | XOF |
+| Cameroun | `CMR` | `mtn` | XAF |
+| Congo-Brazzaville | `COG` | `mtn`, `airtel` | XAF |
+| Gabon | `GAB` | `airtel`, `moov` | XAF |
+| Kenya | `KEN` | `mpesa` | KES |
+| Rwanda | `RWA` | `mtn`, `airtel` | RWF |
+| Sénégal | `SEN` | `orange`, `free` | XOF |
+| Sierra Leone | `SLE` | `orange` | SLE |
+| Ouganda | `UGA` | `mtn`, `airtel` | UGX |
+| Zambie | `ZMB` | `mtn`, `zamtel` | ZMW |
+
+::: tip Champ `country`
+Le champ `country` (ISO 3166-1 alpha-3) est **facultatif pour un MSISDN RDC** (préfixe 243, inféré automatiquement). Il est **requis pour les 10 autres pays**.
+:::
+
+**Exemple RDC (aucun `country` à envoyer)** :
+
 ```typescript
 const p = await nexera.payments.create({
   amount: 100,             // 100 USD — unité entière de la devise (int)
-  currency: "USD",         // "USD" | "CDF"
+  currency: "USD",         // USD ou CDF pour RDC
   method: "mobile_money",
   operator: "mpesa",       // "mpesa" | "airtel" | "orange" | "africell"
   phone: "243812345001",
   reference: "INV-001",    // unique par marchand
   description: "Facture #INV-001",
   metadata: { invoice_id: "abc", customer_id: "def" },
+});
+```
+
+**Exemple Kenya M-Pesa (`country` requis)** :
+
+```typescript
+const p = await nexera.payments.create({
+  amount: 1000,            // 1000 KES
+  currency: "KES",
+  method: "mobile_money",
+  country: "KEN",          // ISO 3166-1 alpha-3
+  operator: "mpesa",
+  phone: "254722000000",
+  reference: "INV-002",
+});
+```
+
+**Exemple Ouganda MTN** :
+
+```typescript
+const p = await nexera.payments.create({
+  amount: 5000,            // 5000 UGX
+  currency: "UGX",
+  method: "mobile_money",
+  country: "UGA",
+  operator: "mtn",         // ou "airtel"
+  phone: "256772000000",
+  reference: "INV-003",
 });
 ```
 
